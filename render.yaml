@@ -4,7 +4,7 @@ services:
     env: node
     rootDir: backend
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node src/server.js
     plan: free
     autoDeploy: true
     envVars:
