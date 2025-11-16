@@ -71,3 +71,34 @@ export const searchUsers = async (query) => {
   });
   return response.data;
 };
+
+// Moments (Stories)
+export async function getMoments() {
+  const res = await axiosInstance.get("/moments");
+  return res.data;
+}
+
+export async function createMoment({ mediaUrl, type, durationMs }) {
+  const res = await axiosInstance.post("/moments", { mediaUrl, type, durationMs });
+  return res.data;
+}
+
+export async function markMomentViewed(id) {
+  const res = await axiosInstance.post(`/moments/${id}/view`);
+  return res.data;
+}
+
+export async function deleteMoment(id) {
+  const res = await axiosInstance.delete(`/moments/${id}`);
+  return res.data;
+}
+
+export async function getMomentReplies(id) {
+  const res = await axiosInstance.get(`/moments/${id}/replies`);
+  return res.data;
+}
+
+export async function createMomentReply(id, payload) {
+  const res = await axiosInstance.post(`/moments/${id}/replies`, payload);
+  return res.data;
+}

@@ -1,10 +1,7 @@
 import axios from "axios";
 
-// Determine base URL depending on environment
-const BASE_URL =
-  import.meta.env.MODE === "development"
-    ? "http://localhost:5001/api"
-    : "https://your-backend-api.com/api"; // production URL
+// Local development API base URL
+const BASE_URL = "http://localhost:5001/api";
 
 // Create a single axios instance
 export const axiosInstance = axios.create({

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { SearchIcon, WifiIcon, WifiOffIcon } from "lucide-react";
+import { WifiIcon, WifiOffIcon } from "lucide-react";
 
 import { getUserFriends } from "../lib/api";
 import FriendCard from "../components/FriendCard";
@@ -10,7 +10,6 @@ import NoFriendsFound from "../components/NoFriendsFound";
 const socket = io("http://localhost:5173", { withCredentials: true });
 
 const FriendsPage = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("online");
   const queryClient = useQueryClient();
 
@@ -39,13 +38,8 @@ const FriendsPage = () => {
   const offlineCount = friends.filter((f) => !f.isOnline).length;
 
   // ✅ Filter by status
-  const filteredByStatus = friends.filter((friend) =>
+  const filteredFriends = friends.filter((friend) =>
     filterStatus === "online" ? friend.isOnline : !friend.isOnline
-  );
-
-  // ✅ Search filter
-  const filteredFriends = filteredByStatus.filter((friend) =>
-    friend.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -70,20 +64,6 @@ const FriendsPage = () => {
           >
             <WifiOffIcon size={16} /> Offline ({offlineCount})
           </button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="flex items-center gap-2 mt-4 max-w-md">
-          <div className="relative w-full">
-            <SearchIcon className="absolute left-3 top-3 text-base-content/60 size-4" />
-            <input
-              type="text"
-              placeholder="Search friends..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="input input-bordered w-full pl-10"
-            />
-          </div>
         </div>
 
         {/* Friends List */}

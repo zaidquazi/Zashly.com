@@ -21,22 +21,28 @@ const App = () => {
   const { isLoading, authUser } = useAuthUser();
   const { theme } = useThemeStore();
 
-  // Apply theme to the root html element and prevent body scrolling
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    document.body.classList.add("h-screen", "overflow-hidden");
-    return () => {
-      document.body.classList.remove("h-screen", "overflow-hidden");
-    };
   }, [theme]);
 
   const isAuthenticated = Boolean(authUser);
   const isOnboarded = authUser?.isOnboarded;
 
+  useEffect(() => {
+    if (isAuthenticated && isOnboarded) {
+      document.body.classList.add("h-screen", "overflow-hidden");
+    } else {
+      document.body.classList.remove("h-screen", "overflow-hidden");
+    }
+    return () => {
+      document.body.classList.remove("h-screen", "overflow-hidden");
+    };
+  }, [isAuthenticated, isOnboarded]);
+
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <Routes>
         <Route
           path="/"

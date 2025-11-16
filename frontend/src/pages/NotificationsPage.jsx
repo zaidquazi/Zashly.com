@@ -51,17 +51,7 @@ const NotificationsPage = () => {
       <audio ref={audioRef} src="/notification.mp3" preload="auto" />
       <div className="container mx-auto space-y-10">
         {/* Nav */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link to="/" className="btn btn-outline btn-sm">
-            <UsersIcon className="mr-2 size-4" />
-            Home
-          </Link>
-
-          <Link to="/friends" className="btn btn-outline btn-sm">
-            <UsersIcon className="mr-2 size-4" />
-            Friends
-          </Link>
-        </div>
+        
       </div>
 
       <br/>
