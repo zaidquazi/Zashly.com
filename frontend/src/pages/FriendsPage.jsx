@@ -18,7 +18,6 @@ const FriendsPage = () => {
     queryFn: getUserFriends,
   });
 
-  // ✅ Realtime updates
   useEffect(() => {
     socket.on("friendStatusChange", (updatedFriend) => {
       queryClient.setQueryData(["friends"], (oldFriends = []) =>
@@ -33,11 +32,11 @@ const FriendsPage = () => {
     };
   }, [queryClient]);
 
-  // ✅ Count online/offline
+  //  Count online/offline
   const onlineCount = friends.filter((f) => f.isOnline).length;
   const offlineCount = friends.filter((f) => !f.isOnline).length;
 
-  // ✅ Filter by status
+  // Filter by status
   const filteredFriends = friends.filter((friend) =>
     filterStatus === "online" ? friend.isOnline : !friend.isOnline
   );
